@@ -10,13 +10,36 @@
 
   <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
 
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
   <br>
   <div class="container">
     <h1>Hi there!</h1>
-    <h5>This website is intended to reset your Telegram bot <code>getUpdates</code> method. Simply enter your bot token below and hit the reset button. That's it!</h5>
+    <h5>This website is intended to reset your Telegram bot <code>getUpdates</code> method. Simply enter your bot token below and hit the reset button. That's it! It just sends a GET request to <code>https://api.telegram.org/bot{{token}}/getUpdates?offset=-1</code> — it's this simple.</h5>
+    <h5>Don't trust this website? You shouldn't! Go check out our <a href="https://github.com/backmeupplz/reset-bot">code on GitHub</a> to see that there is nothing fishy going on. In case you wonder — yes, this website is hosted with <a href="https://pages.github.com/">GitHub Pages</a> and could use your contribution. This website does not use cookies so you are safe from the Cookie Monster.</h5>
+
+    <div id="app">
+      <div class="form-group">
+        <input type="text" class="form-control" aria-describedby="tokenHelp" placeholder="Your Telegram bot token" v-model="token">
+        <small id="tokenHelp" class="form-text text-muted">We never save it, even locally or in cache.</small>
+      </div>
+      <button type="button" class="btn btn-primary" @click.prevent="reset">Reset</button>
+      <br><br>
+      <div class="alert alert-warning" role="alert" v-if="loading">
+        Loading...
+      </div>
+      <div v-if="done">
+        <div class="alert alert-success" role="alert">
+          <strong>Well done!</strong> You successfully reset the <code>getUpdates</code> of the bot! Here's the response:
+        </div>
+        <code>{{done}}</code>
+      </div>
+    </div>
   </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
