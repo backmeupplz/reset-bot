@@ -38,6 +38,24 @@
         </div>
         <code>{{done}}</code>
       </div>
+      <h5>Also, please, enjoy the easy way to <code>sendMessage</code> to any chat id with your bot.</h5>
+      <div class="form-group">
+        <input type="text" class="form-control" aria-describedby="sendHelp" placeholder="Your message" v-model="message">
+        <small id="sendHelp" class="form-text text-muted">Put message tosend with the bot token above.</small>
+        <input type="number" class="form-control" aria-describedby="chatIdHelp" placeholder="Chat id" v-model="chatid">
+        <small id="chatIdHelp" class="form-text text-muted">Put chat id here.</small>
+      </div>
+      <button type="button" class="btn btn-primary" @click.prevent="send">Send</button>
+      <br><br>
+      <div class="alert alert-warning" role="alert" v-if="sending">
+        Sending...
+      </div>
+      <div v-if="doneSending">
+        <div class="alert alert-success" role="alert">
+          <strong>Well done!</strong> You successfully send the <code>sendMessage</code>! Here's the response:
+        </div>
+        <code>{{doneSending}}</code>
+      </div>
     </div>
     <br>
     <div class="text-right">
