@@ -8,6 +8,9 @@ var app = new Vue({
     chatid: null,
     doneSending: null,
     sending: false,
+    
+    doneGettingMe: null,
+    gettingMe: null,
   },
   methods: {
     reset: function() {
@@ -34,6 +37,19 @@ var app = new Vue({
         .catch((err) => {
           this.sending = false;
           this.doneSending = err.response.data;
+        });
+    },
+    getMe() {
+      this.doneGettingMe = null;
+      this.gettingMe = true;
+      axios.get('https://api.telegram.org/bot' + this.token + '/getMe')
+        .then((response) => {
+          this.gettingMe = false;
+          this.doneGettingMe = response.data;
+        })
+        .catch((err) => {
+          this.gettingMe = false;
+          this.doneGettingMe = err.response.data;
         });
     }
   }
